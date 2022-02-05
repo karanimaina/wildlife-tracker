@@ -59,5 +59,22 @@ public static final String CATEGORY= "not endangered";
     public String getHealth() {
         return health;
     }
+
+    public int getId() {
+        return id;
+    }
+    public static Animals find(int id){
+        try (Connection con=DB.sql2o.open()){
+            String sql= "SELECT * FROM animals WHERE id=:id";
+            Animals animal=  con.createQuery(sql)
+                    .addParameter("id",id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Animals.class);
+            return animal;
+
+        }
+
+    }
+
 }
 

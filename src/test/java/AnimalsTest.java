@@ -41,6 +41,14 @@ public class AnimalsTest {
     }
 
     @Test
+    public void AnimalRetrievesIdAndReturnsCrrectInfo() {
+        Animals testAnimal = setupAnimals();
+        testAnimal.save();
+        Animals foundAnimal= Animals.find(testAnimal.getId());
+        assertTrue(foundAnimal.equals(testAnimal));
+    }
+
+    @Test
     public void Animal_allInstancesAreSaved() {
         Animals animals = setupAnimals();
         animals.save();
