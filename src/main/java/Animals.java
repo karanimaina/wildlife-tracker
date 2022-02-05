@@ -17,6 +17,15 @@ public static final String CATEGORY= "not endangered";
         this.health ="";
     }
 
+    public static List<Animals> all() {
+        try(Connection conn = DB.sql2o.open()){
+            String sql ="SELECT * FROM animals";
+            return conn.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Animals.class);
+
+        }
+    }
 
 
 
@@ -45,4 +54,4 @@ public static final String CATEGORY= "not endangered";
         }
 
     }
-}
+
