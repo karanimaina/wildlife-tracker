@@ -33,6 +33,9 @@ public class AnimalsTest {
         Animals animals = setupAnimals();
         animals.save();
         assertTrue(Animals.all().get(0).equals(animals));
+    }
 
+    @Test
+    public void () {
     }
 }

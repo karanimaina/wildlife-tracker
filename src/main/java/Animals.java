@@ -7,6 +7,7 @@ public String name;
 public String  type;
 public String age;
 public String health;
+public int id;
 public static final String CATEGORY= "not endangered";
     public Animals(String name) {
         this.name = name;
@@ -15,6 +16,7 @@ public static final String CATEGORY= "not endangered";
         this.age = "";
         this.health ="";
     }
+
 
 
 
@@ -31,6 +33,15 @@ public static final String CATEGORY= "not endangered";
     public void save() {
         if (this.name.equals("")||this.age.equals("")||this.health.equals("")||this.type.equals("")){
             throw new IllegalArgumentException("Fields are required");
+        }
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "INSERT INTO  animals(name,type)VALUES(:name, :type)";
+            this.id =(int) conn.createQuery(sql,true)
+                    .addParameter("name",this.name)
+                    .addParameter("type",this.type)
+                    .executeUpdate()
+                    .getKey();
+        }
         }
 
     }
