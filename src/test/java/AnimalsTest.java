@@ -6,11 +6,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class AnimalsTest {
-    private Animals setupAnimals() {
-        return new Animals("Zebra");
-    }
+
     @Rule
-    DatabaseRule databaseRule = new DatabaseRule();
+  public  DatabaseRule databaseRule = new DatabaseRule();
 
     @Test
     public void Animal_instantiatesCorrectly() {
@@ -27,23 +25,23 @@ public class AnimalsTest {
     @Test
     public void Animal_returnsCategoryOfSavedAnimal() {
         Animals animals = setupAnimals();
-        assertEquals(" not endangered",animals.getType());
+        assertEquals("not endangered",animals.getType());
     }
 
     @Test
     public void Animal_returnsAge() {
         Animals animals = setupAnimals();
-        assertEquals(" ",animals.getAge());
+        assertEquals("adult",animals.getAge());
     }
 
     @Test
     public void testAnimal_returnsHealth() {
         Animals testAnimal = setupAnimals();
-        assertEquals(" ",testAnimal.getHealth());
+        assertEquals("young",testAnimal.getHealth());
     }
 
     @Test
-    public void AnimalRetrievesIdAndReturnsCrrectInfo() {
+    public void AnimalRetrievesIdAndReturnsCorrectInfo() {
         Animals testAnimal = setupAnimals();
         testAnimal.save();
         Animals foundAnimal= Animals.find(testAnimal.getId());
@@ -54,6 +52,8 @@ public class AnimalsTest {
     public void Animal_allInstancesAreSaved() {
         Animals animals = setupAnimals();
         animals.save();
+        Animals animals1 = setupAnimals();
+        animals1.save();
         assertTrue(Animals.all().get(0).equals(animals));
     }
 
@@ -67,13 +67,29 @@ public class AnimalsTest {
     @Test
     public void deleteAllEntries() {
         Animals testAnimal=setupAnimals();
-        Animals otherAnimal= new Animals(" octopus");
+        Animals otherAnimal= new Animals("Octopus","adult","young");
         testAnimal.save();
         otherAnimal.save();
         Animals.deleteAll();
         List<Animals> animals=Animals.all();
         assertEquals(0,animals.size());
     }
+
+    @Test
+    public void EnsureNaneNotNull() {
+        Animals testAnimal=setupAnimals();
+        try {
+            testAnimal.save();
+        }catch (IllegalArgumentException e){
+
+        }
+    }
+
+
+    private Animals setupAnimals() {
+        return new Animals("Zebra","adult","young");
+    }
+
 
 
 }
