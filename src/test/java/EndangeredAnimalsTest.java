@@ -1,6 +1,8 @@
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class EndangeredAnimalsTest {
@@ -12,6 +14,49 @@ public class EndangeredAnimalsTest {
         EndangeredAnimals testAnimal= setUpNewAnimal();
         assertEquals(true,testAnimal instanceof EndangeredAnimals);
     }
+    @Test
+    public void allInstancesAreSaved(){
+        EndangeredAnimals testAnimal=setUpNewAnimal();
+        testAnimal.save();
+        assertTrue(EndangeredAnimals.all().get(0).getHealth().equals(testAnimal.getHealth()));
+    }
+    @Test
+    public void findByIdReturnsCorrectInfo(){
+        EndangeredAnimals testAnimal=setUpNewAnimal();
+        testAnimal.save();
+        Animals foundAnimal= Animals.find(testAnimal.getId());
+        assertTrue(foundAnimal.getHealth().equals(testAnimal.getHealth()));
+
+    }
+    @Test
+    public void deleteByID(){
+        EndangeredAnimals testAnimal=setUpNewAnimal();
+        testAnimal.save();
+        testAnimal.delete();
+        assertEquals(null,Animals.find(testAnimal.getId()));
+
+    }
+    @Test
+    public void deleteAllEntries(){
+        EndangeredAnimals testAnimal=setUpNewAnimal();
+        EndangeredAnimals otherAnimal=setUpNewAnimal();
+        testAnimal.save();
+        otherAnimal.save();
+        Animals.deleteAll();
+        List<Animals> animals=Animals.all();
+        assertEquals(0,animals.size());
+    }
+    @Test
+    public void ensureNameFieldCannotBeEmpty(){
+        EndangeredAnimals testAnimal=new EndangeredAnimals("","endangered","","");
+        try {
+            testAnimal.save();
+        }catch (IllegalArgumentException e){
+
+        }
+    }
+
+
     private EndangeredAnimals setUpNewAnimal() {
         return new EndangeredAnimals("White RHino","endangered","healthy","young");
     }
