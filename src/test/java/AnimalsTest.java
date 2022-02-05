@@ -29,13 +29,23 @@ public class AnimalsTest {
     }
 
     @Test
+    public void Animal_returnsAge() {
+        Animals animals = setupAnimals();
+        assertEquals(" ",animals.getAge());
+    }
+
+    @Test
+    public void testAnimal_returnsHealth() {
+        Animals testAnimal = setupAnimals();
+        assertEquals(" ",testAnimal.getHealth());
+    }
+
+    @Test
     public void Animal_allInstancesAreSaved() {
         Animals animals = setupAnimals();
         animals.save();
         assertTrue(Animals.all().get(0).equals(animals));
     }
 
-    @Test
-    public void () {
-    }
+
 }

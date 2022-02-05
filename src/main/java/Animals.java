@@ -23,7 +23,6 @@ public static final String CATEGORY= "not endangered";
             return conn.createQuery(sql)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(Animals.class);
-
         }
     }
 
@@ -53,5 +52,12 @@ public static final String CATEGORY= "not endangered";
         }
         }
 
+    public String getAge() {
+        return age;
     }
+
+    public String getHealth() {
+        return health;
+    }
+}
 
