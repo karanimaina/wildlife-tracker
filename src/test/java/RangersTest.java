@@ -23,10 +23,24 @@ public class RangersTest {
         Rangers rangers = setupNewRanger();
         assertEquals("143234",rangers.getBadgeNumber());
     }
+    @Test
+    public void Ranger_getsPhoneNumber() {
+        Rangers rangers = setupNewRanger();
+        assertEquals("071234567",rangers.getPhoneNumber());
+    }
+
+    @Test
+    public void name() {
+        Rangers ranger = setupNewRanger();
+        ranger.save();
+        assertTrue(ranger.all().get(0).equals(ranger));
+    }
 
     private Rangers setupNewRanger(){
         return new Rangers("Felix maina","143234","071234567");
     }
+
+
 
 
 }
