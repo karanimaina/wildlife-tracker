@@ -11,8 +11,7 @@ public class Rangers {
     public String getNane() {
         return name;
     }
-
-   // public String getBadgeNumber() {
-   //     return badge_number;
-   // }
+    public String getBadgeNumber() {
+      return badge_number;
+    }
 }
