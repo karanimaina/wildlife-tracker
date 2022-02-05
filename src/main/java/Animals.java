@@ -76,5 +76,15 @@ public static final String CATEGORY= "not endangered";
 
     }
 
+
+    public void delete(){
+        try (Connection con=DB.sql2o.open()){
+            String sql = "DELETE FROM animals WHERE id=:id";
+            con.createQuery(sql)
+                    .addParameter("id",this.id)
+                    .executeUpdate();
+
+        }
+    }
 }
 

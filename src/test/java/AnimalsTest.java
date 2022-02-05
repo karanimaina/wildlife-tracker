@@ -55,5 +55,12 @@ public class AnimalsTest {
         assertTrue(Animals.all().get(0).equals(animals));
     }
 
+    @Test
+    public void deleteById() {
+        Animals testAnimal=setupAnimals();
+        testAnimal.save();
+        testAnimal.delete();
+        assertEquals(null,Animals.find(testAnimal.getId()));
+    }
 
 }
