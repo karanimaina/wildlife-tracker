@@ -1,4 +1,5 @@
 import org.sql2o.Connection;
+import org.sql2o.Sql2oException;
 
 import java.util.List;
 
@@ -9,13 +10,15 @@ public String age;
 public String health;
 public int id;
 public static final String CATEGORY= "not endangered";
-    public Animals(String name) {
+    public Animals(String name, String age, String health) {
         this.name = name;
         this.type = CATEGORY;
-        this.name ="";
-        this.age = "";
-        this.health ="";
+        this.age = age;
+        this.health =health;
     }
+
+
+
 
     public static List<Animals> all() {
         try(Connection conn = DB.sql2o.open()){
@@ -26,7 +29,16 @@ public static final String CATEGORY= "not endangered";
         }
     }
 
+    public static void deleteAll(){
+        try (Connection con=DB.sql2o.open()){
+            String sql = "DELETE FROM animals";
+            con.createQuery(sql)
+                    .executeUpdate();
+        }  catch (Sql2oException ex){
+            System.out.println(ex);
+        }
 
+    }
 
     public String getName() {
         return  name;
@@ -39,14 +51,15 @@ public static final String CATEGORY= "not endangered";
     }
 
     public void save() {
-        if (this.name.equals("")||this.age.equals("")||this.health.equals("")||this.type.equals("")){
+        if (this.name.equals("")||this.age.equals("")||this.health.equals("")){
             throw new IllegalArgumentException("Fields are required");
         }
         try(Connection conn = DB.sql2o.open()){
-            String sql = "INSERT INTO  animals(name,type)VALUES(:name, :type)";
+            String sql = "INSERT INTO  animals(name,age,health)VALUES(:name ,:age,:health)";
             this.id =(int) conn.createQuery(sql,true)
                     .addParameter("name",this.name)
-                    .addParameter("type",this.type)
+                    .addParameter("age",this.age)
+                    .addParameter("health",this.health)
                     .executeUpdate()
                     .getKey();
         }
@@ -74,6 +87,14 @@ public static final String CATEGORY= "not endangered";
 
         }
 
+    }
+    public void delete(){
+        try (Connection con=DB.sql2o.open()){
+            String sql = "DELETE FROM animals WHERE id=:id";
+            con.createQuery(sql)
+                    .addParameter("id",this.id)
+                    .executeUpdate();
+        }
     }
 
 }
