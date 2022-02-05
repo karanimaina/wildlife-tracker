@@ -1,3 +1,4 @@
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -6,6 +7,8 @@ public class AnimalsTest {
     private Animals setupAnimals() {
         return new Animals("Zebra");
     }
+    @Rule
+    DatabaseRule databaseRule = new DatabaseRule();
 
     @Test
     public void Animal_instantiatesCorrectly() {
