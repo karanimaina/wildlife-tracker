@@ -51,14 +51,15 @@ public static final String CATEGORY= "not endangered";
     }
 
     public void save() {
-        if (this.name.equals("")||this.age.equals("")||this.health.equals("")||this.type.equals("")){
+        if (this.name.equals("")||this.age.equals("")||this.health.equals("")){
             throw new IllegalArgumentException("Fields are required");
         }
         try(Connection conn = DB.sql2o.open()){
-            String sql = "INSERT INTO  animals(name,type)VALUES(:name, :type)";
+            String sql = "INSERT INTO  animals(name,age,health)VALUES(:name ,:age,:health)";
             this.id =(int) conn.createQuery(sql,true)
                     .addParameter("name",this.name)
-                    .addParameter("type",this.type)
+                    .addParameter("age",this.age)
+                    .addParameter("health",this.health)
                     .executeUpdate()
                     .getKey();
         }

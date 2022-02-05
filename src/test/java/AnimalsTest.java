@@ -54,7 +54,7 @@ public class AnimalsTest {
         animals.save();
         Animals animals1 = setupAnimals();
         animals1.save();
-        assertTrue(Animals.all().get(0).equals(animals));
+        assertEquals(Animals.all().size(),2);
     }
 
     @Test
