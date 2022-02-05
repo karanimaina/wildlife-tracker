@@ -1,3 +1,5 @@
+import org.sql2o.Connection;
+
 public class EndangeredAnimals extends  Animals {
     private String health;
     private String age;
@@ -11,6 +13,29 @@ public class EndangeredAnimals extends  Animals {
 
     public EndangeredAnimals(String name, String type , String health, String age) {
         super(name, age, health);
+        this.type=type;
+        this.health=health;
+        this.age=age;
+    }
+
+    @Override
+    public void save() {
+        if(this.name.equals("")||this.type.equals("")||this.health.equals("")||this.age.equals("")){
+            throw new IllegalArgumentException("Fields cannot be left blank");
+        }
+        try(Connection conn = DB.sql2o.open()){
+            String sql ="INSERT INTO animals (name,type,health,age) VALUES (:name,:type,:health,:age)";
+            this.id=(int) conn.createQuery(sql,true)
+                    .addParameter("name",this.name)
+                    .addParameter("type",this.type)
+                    .addParameter("health",this.health)
+                    .addParameter("age",this.age)
+                    .executeUpdate()
+                    .getKey();
+        }
+        }
+
 
     }
-}
+
+
