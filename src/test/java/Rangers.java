@@ -1,5 +1,7 @@
 import org.sql2o.Connection;
 
+import java.util.List;
+
 public class Rangers {
     private String name;
     private String badge_number;
@@ -43,6 +45,13 @@ public class Rangers {
     }
 
 
+    public static List<Rangers> all(){
+        try (Connection con=DB.sql2o.open()){
+            String sql="SELECT * FROM rangers";
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Rangers.class);
 
+        }
 
-}
+    }
