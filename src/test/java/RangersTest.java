@@ -30,10 +30,21 @@ public class RangersTest {
     }
 
     @Test
-    public void name() {
+    public void ChecksRangerCorrectlySaves() {
         Rangers ranger = setupNewRanger();
         ranger.save();
-        assertTrue(ranger.all().get(0).equals(ranger));
+        assertTrue(Rangers.all().get(0).equals(ranger));
+    }
+
+    @Test
+    public void null_fieldsAreNotSaved() {
+        Rangers rangers = new Rangers("","","12345");
+        try {
+            rangers.save();
+            assertTrue(Rangers.all().get(0).equals(rangers));
+        }catch (IllegalArgumentException ex){
+            System.out.println(ex);
+        }
     }
 
     private Rangers setupNewRanger(){
