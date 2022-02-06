@@ -3,4 +3,5 @@ CREATE DATABASE wildlife_tracker;
 CREATE TABLE animals(id  serial PRIMARY KEY,name varchar, age varchar,health varchar );
 ALTER TABLE  animals ADD COLUMN type varchar;
 CREATE TABLE rangers (id serial PRIMARY KEY,badge_number varchar,phone_number varchar);
+CREATE TABLE locations (id serial PRIMARY KEY, name varchar);
 CREATE DATABASE wildlife_tracker_test WITH TEMPLATE wildlife_tracker;
