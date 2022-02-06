@@ -15,6 +15,12 @@ public class SightingsTest {
 
     }
     @Test
+    public void returnsAnimal_Id() {
+        Sightings sightings = setupSightings();
+        assertEquals(7,sightings.getAnimal_Id());
+    }
+
+    @Test
     public void allInstancesAreSaved() {
         Sightings sightings = setupSightings();
         Sightings otherSighting = new Sightings(1, 1, 1);
@@ -34,11 +40,21 @@ public class SightingsTest {
         assertEquals(2,sightings.getRanger_Id());
     }
     @Test
-    public void returnsAnimal_Id() {
-        Sightings sightings = setupSightings();
-        assertEquals(7,sightings.getAnimal_Id());
-    }
+    public void findSightingByID() {
+        Sightings sighting=setupSightings();
+        sighting.save();
+        Sightings foundSighting=Sightings.find(sighting.getId());
+        assertTrue(foundSighting.equals(sighting));
 
+    }
+    @Test
+    public void deleteSightingByID() {
+        Sightings sighting=setupSightings();
+        sighting.save();
+        sighting.delete();
+        assertEquals(null,Sightings.find(sighting.getId()));
+
+    }
 
     private  Sightings setupSightings(){
         return  new Sightings(2,3,7);
