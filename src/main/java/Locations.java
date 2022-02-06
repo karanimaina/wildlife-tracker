@@ -39,6 +39,16 @@ private  int id;
                .getKey();
     }
 }
+    public static Locations find(int id){
+        try (Connection con=DB.sql2o.open()){
+            String sql="SELECT * FROM locations WHERE id=:id";
+            return con.createQuery(sql)
+                    .addParameter("id",id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Locations.class);
+        }
+
+    }
 
 
     public void delete(){
