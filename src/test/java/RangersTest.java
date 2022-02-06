@@ -46,6 +46,16 @@ public class RangersTest {
             System.out.println(ex);
         }
     }
+    @Test
+    public void findById() {
+        Rangers ranger= setupNewRanger();
+        Rangers otherRanger=new Rangers("Sylvia","2","0726108898");
+        ranger.save();
+        otherRanger.save();
+        Rangers foundRanger=Rangers.find(ranger.getId());
+        assertTrue(foundRanger.equals(ranger));
+
+    }
 
     private Rangers setupNewRanger(){
         return new Rangers("Felix maina","143234","071234567");
