@@ -47,7 +47,6 @@ private  int id;
                     .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Locations.class);
         }
-
     }
 
 
@@ -59,4 +58,5 @@ private  int id;
                     .executeUpdate();
         }
     }
+
 }

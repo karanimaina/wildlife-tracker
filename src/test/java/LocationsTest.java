@@ -34,8 +34,10 @@ public class LocationsTest {
         location.save();
         newLocation.save();
         location.delete();
+        newLocation.delete();
         assertEquals(null,Locations.find(location.getId()));
     }
+
     private Locations  setupLocations(){
     return new Locations("Near the river");
 }
