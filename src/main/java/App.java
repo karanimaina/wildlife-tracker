@@ -27,6 +27,12 @@ public class App {
             ranger.save();
             return new ModelAndView(model,"ranger-form.hbs");
         },new HandlebarsTemplateEngine());
+//view ranger details
+        get("/view/rangers",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            model.put("rangers",Rangers.all());
+            return new ModelAndView(model,"ranger-view.hbs");
+        },new HandlebarsTemplateEngine());
 
 
 
