@@ -34,7 +34,7 @@ public class SightingsTest {
         assertEquals(2,sightings.getRanger_Id());
     }
     @Test
-    public void returnsAmimal_Id() {
+    public void returnsAnimal_Id() {
         Sightings sightings = setupSightings();
         assertEquals(7,sightings.getAnimal_Id());
     }
