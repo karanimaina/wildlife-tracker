@@ -13,7 +13,7 @@ public class LocationsTest {
     @Test
     public void Locations_getsNameSuccesfuly() {
         Locations locations = setupLocations();
-        assertEquals("Near the river",locations.getId());
+        assertEquals("Near the river",locations.getName());
     }
 
 
