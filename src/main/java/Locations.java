@@ -27,18 +27,19 @@ private  int id;
         return id;
     }
 
-    public void save() {
-        try(Connection conn = DB.sql2o.open()){
-            String sql = "INSERT INTO locations(name)VALUES(:values)";
-            if (name.equals("")){
-                throw new IllegalArgumentException("required fields");
+
+    public void save(){
+        try (Connection con=DB.sql2o.open()){
+            String sql="INSERT INTO locations (name) VALUES (:name)";
+            if(name.equals("")){
+                throw new IllegalArgumentException("All fields must be filled");
+            }
+            this.id=(int) con.createQuery(sql,true)
+                    .addParameter("name",this.name)
+                    .executeUpdate()
+                    .getKey();
         }
-       this .id = (int)conn.createQuery(sql,true)
-               .addParameter("name",this.name)
-               .executeUpdate()
-               .getKey();
     }
-}
     public static Locations find(int id){
         try (Connection con=DB.sql2o.open()){
             String sql="SELECT * FROM locations WHERE id=:id";
