@@ -1,6 +1,8 @@
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Locations {
 private String name;
@@ -60,4 +62,42 @@ private  int id;
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Locations locations = (Locations) o;
+        return id == locations.id && Objects.equals(name, locations.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
+    }
+
+    public List<Sightings> getLocationSightings(){
+        try (Connection con=DB.sql2o.open()){
+            String sql="SELECT sighting_id FROM locations_sightings WHERE location_id=:location_id";
+            List<Integer> sightings_ids=con.createQuery(sql)
+                    .addParameter("location_id",this.getId())
+                    .executeAndFetch(Integer.class);
+            List<Sightings> sightings=new ArrayList<>();
+
+            for(Integer sighting_id:sightings_ids){
+                String sightingsQuery="SELECT * FROM sightings WHERE id=:sighting_id";
+                Sightings sighting=con.createQuery(sightingsQuery)
+                        .addParameter("sighting_id",sighting_id)
+                        .executeAndFetchFirst(Sightings.class);
+                sightings.add(sighting);
+
+            }
+            if(sightings.size()==0){
+                throw new IllegalArgumentException("Location has no sighting");
+            }
+            else {return sightings;}
+
+
+        }
+
+    }
 }

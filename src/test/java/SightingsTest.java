@@ -32,12 +32,12 @@ public class SightingsTest {
     @Test
     public void returnsLocationId() {
        Sightings sightings = setupSightings();
-       assertEquals(3,sightings.getLocation_id());
+       assertEquals(2,sightings.getLocation_id());
     }
     @Test
     public void returnsLRangerId() {
         Sightings sightings = setupSightings();
-        assertEquals(2,sightings.getRanger_Id());
+        assertEquals(3,sightings.getRanger_Id());
     }
     @Test
     public void findSightingByID() {

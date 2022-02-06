@@ -44,7 +44,23 @@ public class LocationsTest {
         newLocation.delete();
         assertEquals(null,Locations.find(location.getId()));
     }
+    @Test
+    public void allSightingsAreReturnedForRanger() {
+        Locations location = setupLocations();
+        try {
 
+            location.save();
+            Sightings sighting=new Sightings(location.getId(),1,1);
+            Sightings otherSighting=new Sightings(location.getId(),1,1);
+            sighting.save();
+            otherSighting.save();
+            assertEquals(location.getLocationSightings().get(0),sighting);
+            assertEquals(location.getLocationSightings().get(1),otherSighting);
+        }catch (IllegalArgumentException e){
+            System.out.println(e);
+        }
+
+    }
     private Locations  setupLocations(){
     return new Locations("zoneA");
 }
