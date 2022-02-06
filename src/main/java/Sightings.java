@@ -1,15 +1,20 @@
 import org.sql2o.Connection;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Sightings {
 private  int id;
 private int location_id;
 private int ranger_id;
 private  int  animal_id;
+private Timestamp time;
 
     public Sightings(int location_id, int ranger_id, int  animal_id) {
    this.location_id = location_id;
    this.ranger_id = ranger_id;
    this.animal_id = animal_id;
+   this.time = new Timestamp(new Date().getTime());
     }
     public int getId() {
         return id;
@@ -27,7 +32,9 @@ private  int  animal_id;
     public int getAnimal_Id() {
         return  animal_id;
     }
-
+    public Timestamp getTime() {
+        return time;
+    }
     public void save(){
 
         if(this.animal_id==-1||this.location_id==-1||this.ranger_id==-1){
