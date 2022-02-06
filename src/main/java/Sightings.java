@@ -1,7 +1,9 @@
 import org.sql2o.Connection;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class Sightings {
 private  int id;
@@ -34,6 +36,15 @@ private Timestamp time;
                     .executeUpdate();
         }
 
+    }
+
+    public static List<Sightings> all(){
+        try (Connection con =DB.sql2o.open()){
+            String sql=("SELECT * FROM sightings");
+            return con.createQuery(sql)
+                    .executeAndFetch(Sightings.class);
+
+        }
     }
 
 

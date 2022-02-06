@@ -62,7 +62,6 @@ public class SightingsTest {
         sighting.save();
         otherSightings.save();
         Sightings.deleteAll();
-
         assertEquals(0,Sightings.all().size());
 
     }
