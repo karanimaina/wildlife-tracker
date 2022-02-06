@@ -49,13 +49,24 @@ public class RangersTest {
     @Test
     public void findById() {
         Rangers ranger= setupNewRanger();
-        Rangers otherRanger=new Rangers("Sylvia","2","0726108898");
+        Rangers otherRanger=new Rangers("Maina","2537t841","0726108898");
         ranger.save();
         otherRanger.save();
         Rangers foundRanger=Rangers.find(ranger.getId());
         assertTrue(foundRanger.equals(ranger));
 
     }
+    @Test
+    public void entriesAreDeleted() {
+        Rangers ranger= setupNewRanger();
+        Rangers otherRanger=new Rangers("Maria","223456","077689583");
+        ranger.save();
+        otherRanger.save();
+        ranger.delete();
+        assertEquals(null,Rangers.find(ranger.getId()));
+
+    }
+
 
     private Rangers setupNewRanger(){
         return new Rangers("Felix maina","143234","071234567");
