@@ -79,6 +79,78 @@ public class App {
             return new ModelAndView(model,"location-view.hbs");
         },new HandlebarsTemplateEngine());
 
+        get("/view/location/sightings/:id",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            int idOfLocation= Integer.parseInt(request.params(":id"));
+            Locations foundLocation=Locations.find(idOfLocation);
+            List<Sightings> sightings=foundLocation.getLocationSightings();
+            ArrayList<String> animals=new ArrayList<String>();
+            ArrayList<String> types=new ArrayList<String>();
+            for (Sightings sighting : sightings){
+                String animal_name=Animals.find(sighting.getAnimal_Id()).getName();
+                String animal_type=Animals.find(sighting.getAnimal_Id()).getType();
+                animals.add(animal_name);
+                types.add(animal_type);
+            }
+            model.put("sightings",sightings);
+            model.put("animals",animals);
+            model.put("types",types);
+            model.put("locations",Locations.all());
+            return new ModelAndView(model,"location-view.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //animals
+        get("/create/animal",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            return new ModelAndView(model,"animal-form.hbs");
+        },new HandlebarsTemplateEngine());
+        post("/create/animal/new",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            String type=request.queryParams("type");
+            System.out.println(type);
+            String health=request.queryParams("health");
+            System.out.println(health);
+            String age=request.queryParams("age");
+            System.out.println(age);
+            String name=request.queryParams("name");
+            System.out.println(name);
+            if(type.equals(EndangeredAnimals.CATEGORY)){
+                EndangeredAnimals endangered=new EndangeredAnimals(name,EndangeredAnimals.CATEGORY,health,age);
+                endangered.save();
+            }
+            else {
+                Animals animal=new Animals(name,age,health);
+                animal.save();
+            }
+
+            return new ModelAndView(model,"animal-form.hbs");
+        },new HandlebarsTemplateEngine());
+
+        get("/create/animal/endangered",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            List<String> health= new ArrayList<String>();
+            health.add(EndangeredAnimals.HEALTH_HEALTHY);
+            health.add(EndangeredAnimals.HEALTH_ILL);
+            health.add(EndangeredAnimals.HEALTH_OKAY);
+            List<String> age= new ArrayList<String>();
+            age.add(EndangeredAnimals.AGE_ADULT);
+            age.add(EndangeredAnimals.AGE_NEWBORN);
+            age.add(EndangeredAnimals.AGE_YOUNG);
+            model.put("health",health);
+            model.put("age",age);
+            String typeChosen="endangered";
+            model.put("endangered",typeChosen);
+            return new ModelAndView(model,"animal-form.hbs");
+        },new HandlebarsTemplateEngine());
+
+        get("/view/animals",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            model.put("animals",Animals.all());
+            return new ModelAndView(model,"animal-view.hbs");
+        },new HandlebarsTemplateEngine());
+
+
+
 
 
 

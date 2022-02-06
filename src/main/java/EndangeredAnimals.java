@@ -10,10 +10,11 @@ public class EndangeredAnimals extends  Animals {
     public static final String AGE_NEWBORN="newborn";
     public static final String AGE_YOUNG="young";
     public static final String AGE_ADULT="adult";
+    public static final String CATEGORY1 ="endangered";
 
-    public EndangeredAnimals(String name, String type , String health, String age) {
+    public EndangeredAnimals(String name ,String type, String health, String age) {
         super(name, age, health);
-        this.type=type;
+        this.type=CATEGORY1;
         this.health=health;
         this.age=age;
     }
