@@ -16,6 +16,17 @@ private Timestamp time;
    this.animal_id = animal_id;
    this.time = new Timestamp(new Date().getTime());
     }
+
+    public static Sightings find(int id){
+        try (Connection con=DB.sql2o.open()){
+            String sql="SELECT * FROM sightings WHERE id=:id";
+            return con.createQuery(sql)
+                    .addParameter("id",id)
+                    .executeAndFetchFirst(Sightings.class);
+
+        }
+    }
+
     public int getId() {
         return id;
     }
