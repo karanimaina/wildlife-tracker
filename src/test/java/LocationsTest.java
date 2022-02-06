@@ -27,7 +27,15 @@ public class LocationsTest {
         System.out.println(ex);
     }
     }
-
+    @Test
+    public void entryIsDeletedSuccessfully() {
+        Locations location=setupLocations();
+        Locations newLocation=new Locations("Zone B");
+        location.save();
+        newLocation.save();
+        location.delete();
+        assertEquals(null,Locations.find(location.getId()));
+    }
     private Locations  setupLocations(){
     return new Locations("Near the river");
 }
