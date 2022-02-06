@@ -55,6 +55,17 @@ public class SightingsTest {
         assertEquals(null,Sightings.find(sighting.getId()));
 
     }
+    @Test
+    public void deleteAll() {
+        Sightings sighting=setupSightings();
+        Sightings otherSightings=new Sightings(2,3,4);
+        sighting.save();
+        otherSightings.save();
+        Sightings.deleteAll();
+
+        assertEquals(0,Sightings.all().size());
+
+    }
 
     private  Sightings setupSightings(){
         return  new Sightings(2,3,7);

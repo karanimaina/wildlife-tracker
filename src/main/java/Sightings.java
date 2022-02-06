@@ -27,6 +27,16 @@ private Timestamp time;
         }
     }
 
+    public static void deleteAll(){
+        try (Connection con=DB.sql2o.open()){
+            String sql="DELETE FROM sightings";
+            con.createQuery(sql)
+                    .executeUpdate();
+        }
+
+    }
+
+
     public int getId() {
         return id;
     }
@@ -82,5 +92,6 @@ private Timestamp time;
         }
 
     }
+    
 }
 
