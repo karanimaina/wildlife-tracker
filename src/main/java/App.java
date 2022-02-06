@@ -73,6 +73,12 @@ public class App {
             return new ModelAndView(model,"location-form.hbs");
         },new HandlebarsTemplateEngine());
 
+        get("/view/locations",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            model.put("locations",Locations.all());
+            return new ModelAndView(model,"location-view.hbs");
+        },new HandlebarsTemplateEngine());
+
 
 
 
