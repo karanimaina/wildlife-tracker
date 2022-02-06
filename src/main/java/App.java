@@ -1,7 +1,9 @@
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static spark.Spark.*;
 
@@ -33,6 +35,35 @@ public class App {
             model.put("rangers",Rangers.all());
             return new ModelAndView(model,"ranger-view.hbs");
         },new HandlebarsTemplateEngine());
+
+        get("/view/ranger/sightings/:id",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            int idOfRanger= Integer.parseInt(request.params(":id"));
+            Rangers foundRanger=Rangers.find(idOfRanger);
+            List<Sightings> sightings=foundRanger.getRangerSightings();
+            List<String> animals=new ArrayList<>();
+            List<String> types=new ArrayList<>();
+            for (Sightings sighting : sightings){
+                String animal_name=Animals.find(sighting.getAnimal_Id()).getName();
+                String animal_type=Animals.find(sighting.getAnimal_Id()).getType();
+                animals.add(animal_name);
+                types.add(animal_type);
+            }
+            model.put("sightings",sightings);
+            model.put("animals",animals);
+            model.put("types",types);
+            model.put("rangers",Rangers.all());
+            return new ModelAndView(model,"ranger-view.hbs");
+        },new HandlebarsTemplateEngine());
+// create a location
+        get("/create/location",(request, response) -> {
+            Map<String,Object> model=new HashMap<String, Object>();
+            return new ModelAndView(model,"location-form.hbs");
+        },new HandlebarsTemplateEngine());
+
+
+
+
 
 
 

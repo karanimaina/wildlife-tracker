@@ -1,0 +1,15 @@
+{#partial "content"}}
+  <div class ="container">
+    <form class="form-group" action="/create/ranger/new" method= post>
+        <h3>Create Rangers:</h3>
+        <hr>
+        <div>
+            <div class="form-floating mt-3">
+                <input type="text" id="name" name="name" class="form-control" placeholder="Input name (John)" required>
+                <label for="floatingInput">Name</label>
+            </div>
+              <button type="submit" class="btn btn-success btn-lg">Add Ranger</button>
+                </form>
+                </div>
+ {{/partial}}
+{{> layout.hbs}}
