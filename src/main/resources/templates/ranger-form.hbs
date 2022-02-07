@@ -1,26 +1,26 @@
 {{#partial "content"}}
-  <div class ="container">
-    <form class="form-group" action="/create/ranger/new" method= post>
-        <h3>Create Rangers:</h3>
-        <hr>
-        <div>
-            <div class="form-floating mt-3">
-                <input type="text" id="name" name="name" class="form-control" placeholder="Input name (John)" required>
-                <label for="floatingInput">Name</label>
+    <div class="form">
+        <form action="/create/ranger/new" method="post">
+            <h1>Create Ranger</h1>
+            <hr>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Input Name..." required>
             </div>
-            <div class="form-floating mt-3">
-            <input type="text" id="badge" name="badge" class="form-control" placeholder="input Badge Number909_886" required>
-            <label for="floatingInput">Badge Number</label>
+            <div class="form-group">
+                <label for="badge">Badge Number</label>
+                <input type="text" class="form-control form-control-lg" id="badge" name="badge" placeholder="Input Badge Number..."required>
             </div>
-            <div class="form-floating mt-3">
-                <input type="text" id="phone" name="phone" class="form-control" placeholder="input phone number (0797979797)" required>
-                <label for="floatingInput">Phone number</label>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Input Phone Number..."
+                       required>
             </div>
-
-        <button type="submit" class="btn btn-success btn-lg">Add Ranger</button>
-    </form>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg"> Create </button>
+            </div>
+        </form>
     </div>
 
 {{/partial}}
-
 {{> layout.hbs}}
