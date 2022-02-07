@@ -2,6 +2,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Animals {
 public String name;
@@ -95,6 +96,20 @@ public static final String CATEGORY= "not endangered";
                     .addParameter("id",this.id)
                     .executeUpdate();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animals animals = (Animals) o;
+        return name.equals(animals.name) &&
+                type.equals(animals.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name,type);
     }
 
 }

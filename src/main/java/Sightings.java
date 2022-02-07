@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Sightings {
 private  int id;
@@ -104,6 +105,20 @@ private Timestamp time;
         }
 
     }
-    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sightings sightings = (Sightings) o;
+        return id == sightings.id &&
+                location_id == sightings.location_id &&
+                ranger_id == sightings.ranger_id &&
+                animal_id == sightings.animal_id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location_id, ranger_id, animal_id);
+    }
 }
 

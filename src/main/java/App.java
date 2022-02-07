@@ -185,28 +185,5 @@ public class App {
             return new ModelAndView(model, "sighting-view.hbs");
         }, new HandlebarsTemplateEngine());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
