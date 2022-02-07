@@ -1,5 +1,6 @@
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rangers {
@@ -39,13 +40,13 @@ public class Rangers {
         return id;
     }
 
-    public void save() {
-        try(Connection conn = DB.sql2o.open()) {
-            String sql = "INSERT INTO rangers (name,badge_number,phone_number)VALUES(:name,:badge_number,:phone_number";
+    public void save(){
+        try (Connection con=DB.sql2o.open()){
+            String sql="INSERT INTO rangers (name,badge_number,phone_number) VALUES (:name,:badge_number,:phone_number)";
             if(name.equals("")||badge_number.equals("")||phone_number.equals("")){
                 throw new IllegalArgumentException("All fields must be filled");
             }
-            this.id=(int) conn.createQuery(sql,true)
+            this.id=(int) con.createQuery(sql,true)
                     .addParameter("name",this.name)
                     .addParameter("badge_number",this.badge_number)
                     .addParameter("phone_number",this.phone_number)
@@ -53,7 +54,6 @@ public class Rangers {
                     .getKey();
         }
     }
-
 
     public static List<Rangers> all(){
         try (Connection con=DB.sql2o.open()){
@@ -74,5 +74,32 @@ public class Rangers {
                     .addParameter("id",this.id)
                     .executeUpdate();
         }
+    }
+
+
+    public List<Sightings> getRangerSightings(){
+        try (Connection con=DB.sql2o.open()){
+            String sql="SELECT sighting_id FROM rangers_sightings WHERE ranger_id=:ranger_id";
+            List<Integer> sightings_ids=con.createQuery(sql)
+                    .addParameter("ranger_id",this.getId())
+                    .executeAndFetch(Integer.class);
+            List<Sightings> sightings=new ArrayList<>();
+
+            for(Integer sighting_id:sightings_ids){
+                String sightingsQuery="SELECT * FROM sightings WHERE id=:sighting_id";
+                Sightings sighting=con.createQuery(sightingsQuery)
+                        .addParameter("sighting_id",sighting_id)
+                        .executeAndFetchFirst(Sightings.class);
+                sightings.add(sighting);
+
+            }
+            if(sightings.size()==0){
+                throw new IllegalArgumentException("Ranger has no sighting");
+            }
+            else {return sightings;}
+
+
+        }
+
     }
 }

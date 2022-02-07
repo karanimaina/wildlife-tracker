@@ -51,7 +51,7 @@ public static final String CATEGORY= "not endangered";
     }
 
     public void save() {
-        if (this.name.equals("")||this.age.equals("")||this.health.equals("")){
+        if (this.name.equals(null)||this.age.equals(null)||this.health.equals(null)){
             throw new IllegalArgumentException("Fields are required");
         }
         try(Connection conn = DB.sql2o.open()){

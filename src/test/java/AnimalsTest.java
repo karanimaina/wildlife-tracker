@@ -42,10 +42,10 @@ public class AnimalsTest {
 
     @Test
     public void AnimalRetrievesIdAndReturnsCorrectInfo() {
-        Animals testAnimal = setupAnimals();
+        Animals testAnimal=setupAnimals();
         testAnimal.save();
         Animals foundAnimal= Animals.find(testAnimal.getId());
-        assertTrue(foundAnimal.equals(testAnimal));
+        assertTrue(foundAnimal.getHealth().equals(testAnimal.getHealth()));
     }
 
     @Test
