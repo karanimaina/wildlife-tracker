@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Locations {
+public class Locations  implements DatabaseAccess{
 private String name;
 private  int id;
     public Locations(String name) {

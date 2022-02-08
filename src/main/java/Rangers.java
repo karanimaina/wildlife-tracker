@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Rangers {
+public class Rangers implements DatabaseAccess{
     private String name;
     private String badge_number;
     private  String phone_number;

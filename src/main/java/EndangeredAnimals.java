@@ -1,6 +1,6 @@
 import org.sql2o.Connection;
 
-public class EndangeredAnimals extends  Animals {
+public class EndangeredAnimals extends  Animals implements DatabaseAccess {
     private String health;
     private String age;
     public static final String HEALTH_HEALTHY="healthy";
