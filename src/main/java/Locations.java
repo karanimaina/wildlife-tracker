@@ -62,18 +62,7 @@ private  int id;
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Locations locations = (Locations) o;
-        return id == locations.id && Objects.equals(name, locations.name);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, id);
-    }
 
     public List<Sightings> getLocationSightings(){
         try (Connection con=DB.sql2o.open()){
@@ -99,5 +88,18 @@ private  int id;
 
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Locations locations = (Locations) o;
+        return id == locations.id && name.equals(locations.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
     }
 }

@@ -14,7 +14,7 @@ public class EndangeredAnimals extends  Animals {
 
     public EndangeredAnimals(String name ,String type, String health, String age) {
         super(name, age, health);
-        this.type=CATEGORY1;
+        this.type=type;
         this.health=health;
         this.age=age;
     }

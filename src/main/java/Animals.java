@@ -10,7 +10,7 @@ public String  type;
 public String age;
 public String health;
 public int id;
-public static final String CATEGORY= "not endangered";
+public static final String CATEGORY= "normal";
     public Animals(String name, String age, String health) {
         this.name = name;
         this.type = CATEGORY;
@@ -103,14 +103,12 @@ public static final String CATEGORY= "not endangered";
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animals animals = (Animals) o;
-        return name.equals(animals.name) &&
-                type.equals(animals.type);
+        return id == animals.id && name.equals(animals.name) && type.equals(animals.type) && age.equals(animals.age) && health.equals(animals.health);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name,type);
+        return Objects.hash(name, type, age, health, id);
     }
-
 }
 

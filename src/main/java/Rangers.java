@@ -109,10 +109,7 @@ public class Rangers {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rangers rangers = (Rangers) o;
-        return id == rangers.id &&
-                name.equals(rangers.name) &&
-                badge_number.equals(rangers.badge_number) &&
-                phone_number.equals(rangers.phone_number);
+        return id == rangers.id && name.equals(rangers.name) && badge_number.equals(rangers.badge_number) && phone_number.equals(rangers.phone_number);
     }
 
     @Override
