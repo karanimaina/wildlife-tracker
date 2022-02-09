@@ -43,7 +43,7 @@ Felix maina
 
 ## BDD
 <ol>
-<li>Use this link to access</li>
+<li>Use this link to access   https://felix-wildlife-tracker.herokuapp.com</li>
 <li>Click on create  ranger</li>
 <li>Click on create to record the sighting of the animal</li>
 <li>Click on locations to record the location of the animal observed</li>
