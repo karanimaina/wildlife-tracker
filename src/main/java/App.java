@@ -8,8 +8,17 @@ import java.util.Map;
 import static spark.Spark.*;
 
 public class App {
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
     public static void main(String[] args) {
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
+        //route for displaying the home page
         //welcome page
         get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
@@ -22,13 +31,15 @@ public class App {
         }, new HandlebarsTemplateEngine());
         //create a new ranger object
         post("/create/ranger/new", (request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
-            String name = request.queryParams("name");
-            String badge_number = request.queryParams("phone_number");
-            String phone_number = request.queryParams("phone_number");
-            Rangers ranger = new Rangers(name, badge_number, phone_number);
-            ranger.save();
-            return new ModelAndView(model, "ranger-form.hbs");
+               Map<String, Object> model = new HashMap<String, Object>();
+               String name = request.queryParams("name");
+               String badge_number = request.queryParams("phone_number");
+               String phone_number = request.queryParams("phone_number");
+               Rangers ranger = new Rangers(name, badge_number, phone_number);
+               ranger.save();
+               response.redirect("/create/animal");
+               return new ModelAndView(model, "ranger-form.hbs");
+
         }, new HandlebarsTemplateEngine());
 //view ranger details
         get("/view/rangers", (request, response) -> {
@@ -77,6 +88,7 @@ public class App {
             } catch (IllegalArgumentException e) {
                 System.out.println(e);
             }
+            response.redirect("/create/sighting");
             return new ModelAndView(model, "location-form.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -138,7 +150,7 @@ public class App {
                 Animals animal=new Animals(name,age,health);
                 animal.save();
             }
-
+            response.redirect("/create/location");
             return new ModelAndView(model,"animal-form.hbs");
         },new HandlebarsTemplateEngine());
 
@@ -183,6 +195,7 @@ public class App {
 
             Sightings sighting = new Sightings(location_id, ranger_id, animal_id);
             sighting.save();
+            response.redirect("/view/rangers");
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
