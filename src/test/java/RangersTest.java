@@ -33,7 +33,10 @@ public class RangersTest {
     public void ChecksRangerCorrectlySaves() {
         Rangers ranger = setupNewRanger();
         ranger.save();
+        Rangers rangers = new Rangers("Denis","234","079812346");
+        rangers.save();
         assertTrue(Rangers.all().get(0).equals(ranger));
+        assertTrue(Rangers.all().get(1).equals(rangers));
     }
 
     @Test
@@ -53,7 +56,7 @@ public class RangersTest {
         ranger.save();
         otherRanger.save();
         Rangers foundRanger=Rangers.find(ranger.getId());
-        assertTrue(foundRanger.equals(ranger));
+        assertTrue(foundRanger.getBadgeNumber().equals(ranger.getBadgeNumber()));
 
     }
     @Test
@@ -68,13 +71,13 @@ public class RangersTest {
     }
     @Test
     public void allSightingsAreReturnedForRanger() {
-        Rangers ranger= setupNewRanger();
+        Rangers ranger=setupNewRanger();
         try {
             Locations location=new Locations("Zone A");
             ranger.save();
             location.save();
             Sightings sighting=new Sightings(location.getId(),ranger.getId(),1);
-            Sightings otherSighting=new Sightings(1,ranger.getId(),1);
+            Sightings otherSighting = new Sightings(1,ranger.getId(),1);
             sighting.save();
             otherSighting.save();
             assertEquals(ranger.getRangerSightings().get(0),sighting);
@@ -82,14 +85,36 @@ public class RangersTest {
         }catch (IllegalArgumentException e){
             System.out.println(e);
         }
+    }
 
+    @Test
+    public void returns_badgeNumber_badgeNumber() {
+        Rangers rangers = setupNewRanger();
+        rangers.save();
+        assertEquals("143234",rangers.getBadgeNumber());
+    }
+
+    @Test
+    public void returns_PhoneNumber_phoneNumber () {
+        Rangers rangers = setupNewRanger();
+        rangers.save();
+        assertEquals("071234567",rangers.getPhoneNumber());
+    }
+
+    @Test
+    public void rangerRerurnsEntries() {
+        Rangers rangers = setupNewRanger();
+        rangers.save();
+        Rangers mass = new Rangers("juakali","2345","8483920224");
+        mass.save();
+        assertTrue(Rangers.all().get(0).equals(rangers));
+    }
+    @Test
+    public void printRangers(){
+        System.out.println( Rangers.all());
     }
 
     private Rangers setupNewRanger(){
         return new Rangers("Felix maina","143234","071234567");
     }
-
-
-
-
 }

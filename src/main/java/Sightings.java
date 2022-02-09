@@ -4,20 +4,43 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class Sightings {
+public class Sightings implements DatabaseAccess {
 private  int id;
 private int location_id;
 private int ranger_id;
 private  int  animal_id;
 private Date date =new Date();
 private Timestamp time;
-
-    public Sightings(int location_id, int ranger_id, int  animal_id) {
+   public Sightings(int location_id, int ranger_id, int  animal_id) {
    this.location_id = location_id;
    this.ranger_id = ranger_id;
    this.animal_id = animal_id;
    this.time = new Timestamp(date.getTime());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+
+    public int getLocation_id() {
+        return location_id;
+    }
+
+
+    public int getRanger_Id() {
+        return ranger_id;
+    }
+
+
+    public int getAnimal_Id() {
+        return  animal_id;
+    }
+
+    public Timestamp getTime() {
+        return time;
     }
 
     public static Sightings find(int id){
@@ -49,33 +72,14 @@ private Timestamp time;
     }
 
 
-    public int getId() {
-        return id;
-    }
 
-
-    public int getLocation_id() {
-        return location_id;
-    }
-
-    public int getRanger_Id() {
-        return ranger_id;
-    }
-
-    public int getAnimal_Id() {
-        return  animal_id;
-    }
-    public Timestamp getTime() {
-        return time;
-    }
     public void save(){
 
         if(this.animal_id==-1||this.location_id==-1||this.ranger_id==-1){
             throw new IllegalArgumentException("All fields must be filled");
         }
         try (Connection conn=DB.sql2o.open()){
-            String sql= "INSERT INTO sightings (animal_id,ranger_id,location_id,time) VALUES (:animal_id,:ranger_id," +
-                    ":location_id,:time)";
+            String sql= "INSERT INTO sightings (animal_id,ranger_id,location_id,time) VALUES (:animal_id,:ranger_id,:location_id,:time)";
             String joinRanger="INSERT INTO rangers_sightings (ranger_id,sighting_id) VALUES (:ranger_id,:sighting_id)";
             String joinLocation="INSERT INTO locations_sightings (location_id,sighting_id) VALUES (:location_id," +
                     ":sighting_id)";
@@ -104,6 +108,18 @@ private Timestamp time;
         }
 
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sightings sightings = (Sightings) o;
+        return id == sightings.id && location_id == sightings.location_id && ranger_id == sightings.ranger_id && animal_id == sightings.animal_id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location_id, ranger_id, animal_id);
+    }
 }
 

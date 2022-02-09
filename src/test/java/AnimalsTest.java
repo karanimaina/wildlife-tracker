@@ -89,7 +89,4 @@ public class AnimalsTest {
     private Animals setupAnimals() {
         return new Animals("Zebra","adult","young");
     }
-
-
-
 }

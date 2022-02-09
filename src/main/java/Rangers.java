@@ -1,18 +1,30 @@
 import org.sql2o.Connection;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Rangers {
+public class Rangers implements DatabaseAccess{
     private String name;
     private String badge_number;
     private  String phone_number;
     private int id;
-
     public Rangers(String name, String badge_number, String phone_number) {
         this.name = name;
         this.badge_number=  badge_number;
         this.phone_number= phone_number;
+    }
+    public String getNane() {
+        return name;
+    }
+    public String getBadgeNumber() {
+        return badge_number;
+    }
+
+    public String getPhoneNumber() {
+        return phone_number;
+    }
+    public int getId(){
+        return id;
     }
 
     public static Rangers find(int id){
@@ -23,21 +35,6 @@ public class Rangers {
                     .executeAndFetchFirst(Rangers.class);
         }
 
-    }
-
-
-    public String getNane() {
-        return name;
-    }
-    public String getBadgeNumber() {
-      return badge_number;
-    }
-
-    public String getPhoneNumber() {
-        return phone_number;
-    }
-    public int getId(){
-        return id;
     }
 
     public void save(){
@@ -91,15 +88,25 @@ public class Rangers {
                         .addParameter("sighting_id",sighting_id)
                         .executeAndFetchFirst(Sightings.class);
                 sightings.add(sighting);
-
             }
             if(sightings.size()==0){
                 throw new IllegalArgumentException("Ranger has no sighting");
             }
             else {return sightings;}
+}
 
+    }
 
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rangers rangers = (Rangers) o;
+        return id == rangers.id && name.equals(rangers.name) && badge_number.equals(rangers.badge_number) && phone_number.equals(rangers.phone_number);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, badge_number, phone_number, id);
     }
 }

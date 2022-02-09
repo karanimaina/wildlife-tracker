@@ -2,14 +2,15 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
+import java.util.Objects;
 
-public class Animals {
+public class Animals implements DatabaseAccess {
 public String name;
 public String  type;
 public String age;
 public String health;
 public int id;
-public static final String CATEGORY= "not endangered";
+public static final String CATEGORY= "normal";
     public Animals(String name, String age, String health) {
         this.name = name;
         this.type = CATEGORY;
@@ -18,7 +19,25 @@ public static final String CATEGORY= "not endangered";
     }
 
 
+    public String getName() {
+        return name;
+    }
 
+    public String getType() {
+        return type;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public static List<Animals> all() {
         try(Connection conn = DB.sql2o.open()){
@@ -40,15 +59,6 @@ public static final String CATEGORY= "not endangered";
 
     }
 
-    public String getName() {
-        return  name;
-    }
-
-
-
-    public String getType() {
-        return type;
-    }
 
     public void save() {
         if (this.name.equals(null)||this.age.equals(null)||this.health.equals(null)){
@@ -65,17 +75,12 @@ public static final String CATEGORY= "not endangered";
         }
         }
 
-    public String getAge() {
-        return age;
-    }
 
-    public String getHealth() {
-        return health;
-    }
 
-    public int getId() {
-        return id;
-    }
+
+
+
+
     public static Animals find(int id){
         try (Connection con=DB.sql2o.open()){
             String sql= "SELECT * FROM animals WHERE id=:id";
@@ -97,5 +102,17 @@ public static final String CATEGORY= "not endangered";
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animals animals = (Animals) o;
+        return id == animals.id && name.equals(animals.name) && type.equals(animals.type) && age.equals(animals.age) && health.equals(animals.health);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, type, age, health, id);
+    }
 }
 
