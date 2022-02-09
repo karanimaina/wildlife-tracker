@@ -1,5 +1,4 @@
 import org.sql2o.Connection;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,11 +8,23 @@ public class Rangers implements DatabaseAccess{
     private String badge_number;
     private  String phone_number;
     private int id;
-
     public Rangers(String name, String badge_number, String phone_number) {
         this.name = name;
         this.badge_number=  badge_number;
         this.phone_number= phone_number;
+    }
+    public String getNane() {
+        return name;
+    }
+    public String getBadgeNumber() {
+        return badge_number;
+    }
+
+    public String getPhoneNumber() {
+        return phone_number;
+    }
+    public int getId(){
+        return id;
     }
 
     public static Rangers find(int id){
@@ -24,21 +35,6 @@ public class Rangers implements DatabaseAccess{
                     .executeAndFetchFirst(Rangers.class);
         }
 
-    }
-
-
-    public String getNane() {
-        return name;
-    }
-    public String getBadgeNumber() {
-      return badge_number;
-    }
-
-    public String getPhoneNumber() {
-        return phone_number;
-    }
-    public int getId(){
-        return id;
     }
 
     public void save(){
@@ -92,15 +88,12 @@ public class Rangers implements DatabaseAccess{
                         .addParameter("sighting_id",sighting_id)
                         .executeAndFetchFirst(Sightings.class);
                 sightings.add(sighting);
-
             }
             if(sightings.size()==0){
                 throw new IllegalArgumentException("Ranger has no sighting");
             }
             else {return sightings;}
-
-
-        }
+}
 
     }
 

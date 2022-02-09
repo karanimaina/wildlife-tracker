@@ -19,7 +19,25 @@ public static final String CATEGORY= "normal";
     }
 
 
+    public String getName() {
+        return name;
+    }
 
+    public String getType() {
+        return type;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public static List<Animals> all() {
         try(Connection conn = DB.sql2o.open()){
@@ -41,15 +59,6 @@ public static final String CATEGORY= "normal";
 
     }
 
-    public String getName() {
-        return  name;
-    }
-
-
-
-    public String getType() {
-        return type;
-    }
 
     public void save() {
         if (this.name.equals(null)||this.age.equals(null)||this.health.equals(null)){
@@ -66,17 +75,12 @@ public static final String CATEGORY= "normal";
         }
         }
 
-    public String getAge() {
-        return age;
-    }
 
-    public String getHealth() {
-        return health;
-    }
 
-    public int getId() {
-        return id;
-    }
+
+
+
+
     public static Animals find(int id){
         try (Connection con=DB.sql2o.open()){
             String sql= "SELECT * FROM animals WHERE id=:id";

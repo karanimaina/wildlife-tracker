@@ -1,9 +1,10 @@
-body{
-     background-image: url("/images/bg.jpg");
-     background-size:cover;
-     color:blanchedalmond;
-
+body {
+    background-image: url("/images/wildlife.jpg");
+    background-size: cover;
+    color: blanchedalmond;
 }
+
+
 
 nav a{
     font-size:1.8em;

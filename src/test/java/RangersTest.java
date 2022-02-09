@@ -87,6 +87,33 @@ public class RangersTest {
         }
     }
 
+    @Test
+    public void returns_badgeNumber_badgeNumber() {
+        Rangers rangers = setupNewRanger();
+        rangers.save();
+        assertEquals("143234",rangers.getBadgeNumber());
+    }
+
+    @Test
+    public void returns_PhoneNumber_phoneNumber () {
+        Rangers rangers = setupNewRanger();
+        rangers.save();
+        assertEquals("071234567",rangers.getPhoneNumber());
+    }
+
+    @Test
+    public void rangerRerurnsEntries() {
+        Rangers rangers = setupNewRanger();
+        rangers.save();
+        Rangers mass = new Rangers("juakali","2345","8483920224");
+        mass.save();
+        assertTrue(Rangers.all().get(0).equals(rangers));
+    }
+    @Test
+    public void printRangers(){
+        System.out.println( Rangers.all());
+    }
+
     private Rangers setupNewRanger(){
         return new Rangers("Felix maina","143234","071234567");
     }
