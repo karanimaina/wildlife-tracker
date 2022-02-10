@@ -5,11 +5,11 @@
                 {{#if rangers}}
                     {{#each rangers as |r|}}
                         <div class="entries">
-                            <p class="text" >{{r.name}}</p><br>
+                            <p class="text" id={{r.id}}>{{r.name}}</p><br>
+                             <p class="text" id={{r.id}}>{{r.badge_number}}</p><br>
+                              <p class="text" id={{r.id}}>{{r.phone_number}}</p><br>
                             <a href="/view/ranger/sightings/{{r.id}}"><button class="btn btn-primary btn-md">View
                               Sightings</button></a>
-{{!--                             <a href="/view/ranger/delete/{{r.id}}"><button class="btn btn-danger --}}
-{{!--                             btn-md">Delete Ranger</button></a> --}}
                         </div>
                         <hr><br>
                     {{/each}}

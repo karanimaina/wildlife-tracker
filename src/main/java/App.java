@@ -31,12 +31,15 @@ public class App {
         }, new HandlebarsTemplateEngine());
         //create a new ranger object
         post("/create/ranger/new", (request, response) -> {
-               Map<String, Object> model = new HashMap<String, Object>();
+               Map<String, Object> model = new HashMap<>();
                String name = request.queryParams("name");
-               String badge_number = request.queryParams("phone_number");
+               String badge_number = request.queryParams("badge_number");
                String phone_number = request.queryParams("phone_number");
                Rangers ranger = new Rangers(name, badge_number, phone_number);
                ranger.save();
+            System.out.println(name);
+            System.out.println(badge_number);
+            System.out.println(phone_number);
                response.redirect("/create/animal");
                return new ModelAndView(model, "ranger-form.hbs");
 
@@ -45,6 +48,7 @@ public class App {
         get("/view/rangers", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("rangers", Rangers.all());
+            System.out.println(Rangers.all());
             return new ModelAndView(model, "ranger-view.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -132,12 +136,12 @@ public class App {
         post("/create/animal/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String type=request.queryParams("type");
-            String health=request.queryParams("health");
-            System.out.println(health);
-            String age=request.queryParams("age");
-            System.out.println(age);
             String name=request.queryParams("name");
             System.out.println(name);
+            String age=request.queryParams("age");
+            System.out.println(age);
+            String health=request.queryParams("health");
+            System.out.println(health);
             model.put("name",name);
             model.put("health",health);
             model.put("age",age);

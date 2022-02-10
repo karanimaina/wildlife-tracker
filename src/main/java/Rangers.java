@@ -13,16 +13,19 @@ public class Rangers implements DatabaseAccess{
         this.badge_number=  badge_number;
         this.phone_number= phone_number;
     }
-    public String getNane() {
+
+    public String getName() {
         return name;
     }
-    public String getBadgeNumber() {
+
+    public String getBadge_number() {
         return badge_number;
     }
 
-    public String getPhoneNumber() {
+    public String getPhone_number() {
         return phone_number;
     }
+
     public int getId(){
         return id;
     }
